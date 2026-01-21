@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zeynep'e Şifa ve Sevgi</title>
+    <title>Zeynep için...</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;600&display=swap');
+
         :root {
-            --bg: #0b1c3d; /* Lacivert arka plan */
-            --text: #ffffff; 
-            --accent: #f1c40f; /* Altın sarısı detaylar */
+            --bg: #0b1c3d; /* Derin Lacivert */
+            --text: #f8f9fa;
+            --gold: #f39c12;
+            --soft-red: #ff7675;
         }
 
-        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         
         body { 
             background: var(--bg); 
@@ -21,58 +24,73 @@
             justify-content: center; 
             align-items: center; 
             overflow: hidden; 
-            transition: 1s;
+            transition: 1.5s;
+            font-family: 'Poppins', sans-serif;
         }
 
         /* === MUM TASARIMI === */
         #candleBox { text-align: center; transition: 0.8s; cursor: pointer; z-index: 10; }
         #candle { 
-            width: 45px; height: 120px; 
-            background: linear-gradient(to bottom, #1a3a6d, #0b1c3d); 
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 10px; margin: auto; position: relative; 
+            width: 40px; height: 110px; 
+            background: linear-gradient(to bottom, #1e3799, #0b1c3d); 
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; margin: auto; position: relative; 
         }
         #flame { 
-            width: 24px; height: 30px; 
-            background: radial-gradient(circle, #fffa65, #ff9f43); 
+            width: 20px; height: 28px; 
+            background: radial-gradient(circle, #fff200, #f39c12); 
             border-radius: 50% 50% 20% 20%; 
-            position: absolute; top: -35px; left: 10px; 
-            animation: flicker .15s infinite alternate; 
-            box-shadow: 0 0 20px #ff9f43;
+            position: absolute; top: -32px; left: 10px; 
+            animation: flicker .1s infinite alternate; 
+            box-shadow: 0 0 25px #f39c12;
         }
         @keyframes flicker { 
-            0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
-            100% { transform: scale(1.1) rotate(2deg); opacity: 1; }
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.1); opacity: 1; }
         }
 
         /* === ANA SAHNE === */
         #main { 
             display: none; flex-direction: column; align-items: center; 
-            width: 100%; position: absolute; text-align: center; padding: 25px; 
+            width: 100%; position: absolute; text-align: center; padding: 30px; 
         }
-        #quote { font-size: 22px; opacity: 0; transition: 1.5s; margin-bottom: 20px; font-style: italic; color: #d1d8e0; }
-        #finalText { font-size: 30px; font-weight: bold; min-height: 80px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+        .message-step {
+            transition: opacity 1.5s ease-in-out;
+            position: absolute;
+            width: 90%;
+            opacity: 0;
+        }
+
+        #quote { font-size: 20px; font-style: italic; color: #ced4da; }
+        #finalText { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 34px; 
+            color: white;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
         #getWellSoon { 
-            font-size: 18px; opacity: 0; transition: 2.5s; margin-top: 25px; 
-            line-height: 1.6; color: #ff7675; font-weight: 500;
+            font-size: 20px; 
+            line-height: 1.6; 
+            color: var(--soft-red);
+            font-weight: 600;
         }
 
         /* === EFEKTLER === */
         .heart, .star { 
             position: absolute; pointer-events: none; z-index: 5; 
-            animation: fly 4s linear forwards; 
+            animation: fly 4.5s linear forwards; 
         }
         @keyframes fly { 
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
         }
 
-        .btn-group { margin-top: 40px; opacity: 0; transition: 1.5s; visibility: hidden; }
-        .btn-group.show { opacity: 1; visibility: visible; }
+        #btns { margin-top: 50px; opacity: 0; transition: 2s; }
         button { 
-            background: rgba(255,255,255,0.1); border: 1px solid white; 
-            padding: 12px 25px; border-radius: 30px; color: white; 
-            font-size: 14px; cursor: pointer; backdrop-filter: blur(5px);
+            background: transparent; border: 1px solid rgba(255,255,255,0.3); 
+            padding: 10px 20px; border-radius: 20px; color: white; 
+            font-size: 13px; letter-spacing: 1px;
         }
     </style>
 </head>
@@ -80,15 +98,16 @@
 
 <div id="candleBox" onclick="startScene()">
     <div id="candle"><div id="flame"></div></div>
-    <p style="margin-top:20px; font-size: 15px; letter-spacing: 1px;">Muma üfle ve iyileş Zeynep ✨</p>
+    <p style="margin-top:20px; font-size: 14px; letter-spacing: 1px; opacity: 0.7;">Muma üfle Zeynep ✨</p>
 </div>
 
 <div id="main">
-    <div id="quote" id="firstQuote">Bu kalp sadece sana üflendi.</div>
-    <div id="finalText"></div>
-    <div id="getWellSoon">Ateşin varmış ama merak etme sevgilim,<br>bu mumun sıcaklığı senin ateşini alıp götürsün... ❤️🩹</div>
-    <div class="btn-group" id="btns">
-        <button onclick="location.reload()">Seni Seviyorum</button>
+    <div id="quote" class="message-step">Bu kalp sadece sana üflendi.</div>
+    <div id="finalText" class="message-step"></div>
+    <div id="getWellSoon" class="message-step">Ateşin varmış ama merak etme,<br>bu mumun sıcaklığı senin ateşini alıp götürsün... ❤️🩹</div>
+    
+    <div id="btns">
+        <button onclick="location.reload()">Tekrarla</button>
     </div>
 </div>
 
@@ -101,56 +120,53 @@ const quote = document.getElementById("quote");
 const finalText = document.getElementById("finalText");
 const gws = document.getElementById("getWellSoon");
 
-// MİKROFON KONTROLÜ
 navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const source = audioContext.createMediaStreamSource(stream);
     const analyser = audioContext.createAnalyser();
     source.connect(analyser);
-    analyser.fftSize = 256;
     const data = new Uint8Array(analyser.frequencyBinCount);
-
     function check() {
         analyser.getByteFrequencyData(data);
         let volume = data.reduce((a, b) => a + b) / data.length;
-        if (volume > 50 && !blown) startScene(); 
+        if (volume > 48 && !blown) startScene(); 
         if (!blown) requestAnimationFrame(check);
     }
     check();
-}).catch(() => console.log("Mikrofon kapalı, dokunma aktif."));
+}).catch(() => {});
 
 function startScene() {
     if(blown) return;
     blown = true;
-    
-    // Mum sönme sesi ve görseli
     document.getElementById("candleBox").style.opacity = "0";
-    document.getElementById("candleBox").style.transform = "scale(0.8)";
     
     setTimeout(() => {
         document.getElementById("candleBox").style.display = "none";
         document.getElementById("main").style.display = "flex";
-        
-        // Müzik ayarları
         music.volume = 0.3;
-        music.currentTime = 60; // 1. Dakikadan başlar
+        music.currentTime = 60;
         music.play().catch(() => {});
 
-        // 1. AŞAMA: İlk Söz
+        // 1. SÖZ: Çıkış ve Kayboluş
         setTimeout(() => {
             quote.style.opacity = "1";
-            
-            // 2. AŞAMA: Sözün Silinmesi
             setTimeout(() => {
                 quote.style.opacity = "0";
                 
-                // 3. AŞAMA: Zeynep Yazısı
+                // 2. SÖZ: "Zeynep seni çok seviyorum"
                 setTimeout(() => {
-                    quote.style.display = "none";
+                    finalText.style.opacity = "1";
                     typeWriter("Zeynep seni çok seviyorum ❤️", () => {
-                        // 4. AŞAMA: Şifa Notu
-                        gws.style.opacity = "1";
-                        finish();
+                        // "Seni çok seviyorum" yazısının kayboluşu
+                        setTimeout(() => {
+                            finalText.style.opacity = "0";
+                            
+                            // 3. SÖZ: Geçmiş Olsun Mesajı
+                            setTimeout(() => {
+                                gws.style.opacity = "1";
+                                finish();
+                            }, 1500);
+                        }, 2500);
                     });
                 }, 1200);
             }, 3000);
@@ -167,22 +183,21 @@ function typeWriter(txt, callback) {
             clearInterval(timer);
             if(callback) callback();
         }
-    }, 130); // Harf hızı
+    }, 130);
 }
 
 function finish() {
-    // Sesin yükselmesi
     let vol = 0.3;
     const volInterval = setInterval(() => {
         if (vol < 0.8) { vol += 0.05; music.volume = vol; }
         else clearInterval(volInterval);
     }, 500);
 
-    document.getElementById("btns").classList.add("show");
+    setTimeout(() => {
+        document.getElementById("btns").style.opacity = "1";
+    }, 3000);
 
-    // Efektler: Lacivert arka planda kalp ve yıldızlar
     setInterval(() => {
-        if(!blown) return;
         const isHeart = Math.random() > 0.4;
         const div = document.createElement("div");
         div.className = isHeart ? "heart" : "star";
@@ -191,7 +206,7 @@ function finish() {
         div.style.top = "100vh";
         div.style.fontSize = (Math.random() * 20 + 15) + "px";
         document.body.appendChild(div);
-        setTimeout(() => div.remove(), 4000);
+        setTimeout(() => div.remove(), 4500);
     }, 350);
 }
 </script>
