@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Zeynep için...</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap');
 
         :root {
-            --bg: #0b1c3d; /* Derin Lacivert */
-            --text: #f8f9fa;
-            --gold: #f39c12;
-            --soft-red: #ff7675;
+            --bg: #0b1c3d; 
+            --text: #ffffff;
+            --sub-text: #ced4da;
         }
 
         * { margin:0; padding:0; box-sizing:border-box; }
@@ -21,76 +20,86 @@
             color: var(--text); 
             height: 100vh; 
             display: flex; 
+            flex-direction: column;
             justify-content: center; 
             align-items: center; 
             overflow: hidden; 
-            transition: 1.5s;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
         }
 
-        /* === MUM TASARIMI === */
-        #candleBox { text-align: center; transition: 0.8s; cursor: pointer; z-index: 10; }
+        /* === MUM === */
+        #candleBox { transition: 0.8s; cursor: pointer; position: absolute; }
         #candle { 
-            width: 40px; height: 110px; 
+            width: 35px; height: 100px; 
             background: linear-gradient(to bottom, #1e3799, #0b1c3d); 
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px; margin: auto; position: relative; 
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px; margin: auto; position: relative; 
         }
         #flame { 
-            width: 20px; height: 28px; 
+            width: 18px; height: 26px; 
             background: radial-gradient(circle, #fff200, #f39c12); 
             border-radius: 50% 50% 20% 20%; 
-            position: absolute; top: -32px; left: 10px; 
+            position: absolute; top: -30px; left: 8px; 
             animation: flicker .1s infinite alternate; 
-            box-shadow: 0 0 25px #f39c12;
+            box-shadow: 0 0 20px #f39c12;
         }
-        @keyframes flicker { 
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
+        @keyframes flicker { 50% { transform: scale(1.1); opacity: 0.9; } }
 
-        /* === ANA SAHNE === */
+        /* === MESAJ ALANI === */
         #main { 
-            display: none; flex-direction: column; align-items: center; 
-            width: 100%; position: absolute; text-align: center; padding: 30px; 
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
         }
 
         .message-step {
-            transition: opacity 1.5s ease-in-out;
             position: absolute;
-            width: 90%;
+            width: 85%;
             opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            pointer-events: none;
+            line-height: 1.6;
         }
 
-        #quote { font-size: 20px; font-style: italic; color: #ced4da; }
-        #finalText { 
-            font-family: 'Dancing Script', cursive; 
-            font-size: 34px; 
-            color: white;
-            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+        #quote { font-size: 19px; color: var(--sub-text); font-weight: 300; }
+        #finalText { font-size: 26px; font-weight: 600; color: white; }
+        #getWellSoon { font-size: 19px; color: white; font-weight: 300; }
+
+        /* === BUTON (EKRANIN EN ALTINA SABİT) === */
+        #btnContainer {
+            position: absolute;
+            bottom: 40px; /* Yazıdan tamamen uzak, en altta */
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            transition: 1.5s;
+            pointer-events: none;
+            z-index: 100;
         }
-        #getWellSoon { 
-            font-size: 20px; 
-            line-height: 1.6; 
-            color: var(--soft-red);
-            font-weight: 600;
+        #btnContainer.show { opacity: 1; pointer-events: auto; }
+        
+        button { 
+            background: rgba(255,255,255,0.08); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            padding: 12px 28px; 
+            border-radius: 50px; 
+            color: white; 
+            font-size: 11px; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
         }
 
         /* === EFEKTLER === */
-        .heart, .star { 
-            position: absolute; pointer-events: none; z-index: 5; 
-            animation: fly 4.5s linear forwards; 
-        }
+        .heart, .star { position: absolute; pointer-events: none; animation: fly 4s linear forwards; }
         @keyframes fly { 
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
-        }
-
-        #btns { margin-top: 50px; opacity: 0; transition: 2s; }
-        button { 
-            background: transparent; border: 1px solid rgba(255,255,255,0.3); 
-            padding: 10px 20px; border-radius: 20px; color: white; 
-            font-size: 13px; letter-spacing: 1px;
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
     </style>
 </head>
@@ -98,17 +107,17 @@
 
 <div id="candleBox" onclick="startScene()">
     <div id="candle"><div id="flame"></div></div>
-    <p style="margin-top:20px; font-size: 14px; letter-spacing: 1px; opacity: 0.7;">Muma üfle Zeynep ✨</p>
+    <p style="margin-top:20px; font-size: 13px; opacity: 0.5; letter-spacing: 1px;">Muma üfle Zeynep ✨</p>
 </div>
 
 <div id="main">
     <div id="quote" class="message-step">Bu kalp sadece sana üflendi.</div>
     <div id="finalText" class="message-step"></div>
     <div id="getWellSoon" class="message-step">Ateşin varmış ama merak etme,<br>bu mumun sıcaklığı senin ateşini alıp götürsün... ❤️🩹</div>
-    
-    <div id="btns">
-        <button onclick="location.reload()">Tekrarla</button>
-    </div>
+</div>
+
+<div id="btnContainer" id="btnBox">
+    <button onclick="location.reload()">Tekrarla</button>
 </div>
 
 <audio id="music" src="music.mp3"></audio>
@@ -119,6 +128,7 @@ const music = document.getElementById("music");
 const quote = document.getElementById("quote");
 const finalText = document.getElementById("finalText");
 const gws = document.getElementById("getWellSoon");
+const btnBox = document.getElementById("btnContainer");
 
 navigator.mediaDevices.getUserMedia({audio:true}).then(stream => {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -143,35 +153,41 @@ function startScene() {
     setTimeout(() => {
         document.getElementById("candleBox").style.display = "none";
         document.getElementById("main").style.display = "flex";
+        
         music.volume = 0.3;
         music.currentTime = 60;
         music.play().catch(() => {});
 
-        // 1. SÖZ: Çıkış ve Kayboluş
+        // 1. Yazı
         setTimeout(() => {
             quote.style.opacity = "1";
+            
             setTimeout(() => {
                 quote.style.opacity = "0";
                 
-                // 2. SÖZ: "Zeynep seni çok seviyorum"
+                // 2. Yazı (İsim)
                 setTimeout(() => {
                     finalText.style.opacity = "1";
                     typeWriter("Zeynep seni çok seviyorum ❤️", () => {
-                        // "Seni çok seviyorum" yazısının kayboluşu
+                        
                         setTimeout(() => {
                             finalText.style.opacity = "0";
                             
-                            // 3. SÖZ: Geçmiş Olsun Mesajı
+                            // 3. Yazı (Geçmiş Olsun)
                             setTimeout(() => {
                                 gws.style.opacity = "1";
-                                finish();
-                            }, 1500);
+                                // Her şey bittiğinde butonu göster
+                                setTimeout(() => {
+                                    btnBox.classList.add("show");
+                                }, 2000);
+                                finishEffects();
+                            }, 1200);
                         }, 2500);
                     });
-                }, 1200);
-            }, 3000);
+                }, 1000);
+            }, 2500);
         }, 500);
-    }, 1000);
+    }, 800);
 }
 
 function typeWriter(txt, callback) {
@@ -183,19 +199,15 @@ function typeWriter(txt, callback) {
             clearInterval(timer);
             if(callback) callback();
         }
-    }, 130);
+    }, 120);
 }
 
-function finish() {
+function finishEffects() {
     let vol = 0.3;
     const volInterval = setInterval(() => {
         if (vol < 0.8) { vol += 0.05; music.volume = vol; }
         else clearInterval(volInterval);
     }, 500);
-
-    setTimeout(() => {
-        document.getElementById("btns").style.opacity = "1";
-    }, 3000);
 
     setInterval(() => {
         const isHeart = Math.random() > 0.4;
@@ -204,10 +216,10 @@ function finish() {
         div.innerHTML = isHeart ? "❤️" : "✨";
         div.style.left = Math.random() * 100 + "vw";
         div.style.top = "100vh";
-        div.style.fontSize = (Math.random() * 20 + 15) + "px";
+        div.style.fontSize = (Math.random() * 15 + 12) + "px";
         document.body.appendChild(div);
-        setTimeout(() => div.remove(), 4500);
-    }, 350);
+        setTimeout(() => div.remove(), 4000);
+    }, 400);
 }
 </script>
 </body>
